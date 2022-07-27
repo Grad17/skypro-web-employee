@@ -1,0 +1,45 @@
+package pro.sky.skyprowebemployee;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
+
+@RestController
+@RequestMapping("/employee")
+public class EmployeeController {
+    private final EmployeeService employeeService;
+
+    @GetMapping()
+    public String welcomeTest() {
+        return employeeService.welcomeTest();
+    }
+
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+    @GetMapping(path = "/add")
+    public String addEmployee(@RequestParam("firstName") String firstName,
+                                @RequestParam("lastName") String lastName) {
+        Employee employee = new Employee(firstName, lastName);
+        return "Добавлен: " + firstName + " " + lastName;
+    }
+    @GetMapping(path = "/delete")
+    public String deleteEmployee(@RequestParam("firstName") String firstName,
+                                @RequestParam("lastName") String lastName) {
+        Employee employee = new Employee(firstName, lastName);
+        return "Удален: " + firstName + " " + lastName;
+    }
+    @GetMapping(path = "/find")
+    public String findEmployee(@RequestParam("firstName") String firstName,
+                                @RequestParam("lastName") String lastName) {
+        Employee employee = new Employee(firstName, lastName);
+        return employeeService.findEmployee(employee);
+    }
+    @GetMapping(path = "/all")
+    public String allEmployee() {
+        return employeeService.allEmployee();
+    }
+}
