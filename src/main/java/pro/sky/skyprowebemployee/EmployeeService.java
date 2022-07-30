@@ -5,14 +5,11 @@ import java.util.Collection;
 public interface EmployeeService {
 
 
-    Employee addEmployee(Employee employee);
+    Employee addEmployee(String firstName, String lastName);
 
-    String deleteEmployee(Employee employee);
+    Employee deleteEmployee(String firstName, String lastName);
 
-    String findEmployee(Employee employee);
+    Employee findEmployee(String firstName, String lastName);
 
-
-    String allEmployee();
-
-    String welcomeTest();
+    Collection<Employee> allEmployee();
 }

@@ -12,34 +12,34 @@ import java.util.Collection;
 public class EmployeeController {
     private final EmployeeService employeeService;
 
-    @GetMapping()
-    public String welcomeTest() {
-        return employeeService.welcomeTest();
-    }
 
+    //    @GetMapping()
+//    public String welcomeTest() {
+//        return employeeService.welcomeTest();
+//    }
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
     @GetMapping(path = "/add")
-    public String addEmployee(@RequestParam("firstName") String firstName,
-                                @RequestParam("lastName") String lastName) {
+    public Employee addEmployee(@RequestParam("firstName") String firstName,
+                                            @RequestParam("lastName") String lastName) {
         Employee employee = new Employee(firstName, lastName);
-        return "Добавлен: " + firstName + " " + lastName;
+        return employee;
     }
     @GetMapping(path = "/delete")
-    public String deleteEmployee(@RequestParam("firstName") String firstName,
-                                @RequestParam("lastName") String lastName) {
+    public Employee deleteEmployee(@RequestParam("firstName") String firstName,
+                                   @RequestParam("lastName") String lastName) {
         Employee employee = new Employee(firstName, lastName);
-        return "Удален: " + firstName + " " + lastName;
+        return employee;
     }
     @GetMapping(path = "/find")
-    public String findEmployee(@RequestParam("firstName") String firstName,
-                                @RequestParam("lastName") String lastName) {
+    public Employee findEmployee(@RequestParam("firstName") String firstName,
+                                 @RequestParam("lastName") String lastName) {
         Employee employee = new Employee(firstName, lastName);
-        return employeeService.findEmployee(employee);
+        return employee;
     }
     @GetMapping(path = "/all")
-    public String allEmployee() {
+    public Collection<Employee> allEmployee() {
         return employeeService.allEmployee();
     }
 }

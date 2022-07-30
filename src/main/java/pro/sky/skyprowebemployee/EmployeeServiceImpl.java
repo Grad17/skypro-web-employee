@@ -6,68 +6,67 @@ import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    List<Employee> employees = new ArrayList<>(List.of(
+    private final List<Employee> employeeList = new ArrayList<>(List.of(
             new Employee("Василий", "Пупкин"),
             new Employee("Владеяр", "Чушкин"),
             new Employee("Петр", "Сахаров"),
             new Employee("Кузьма", "Кузин"),
-            new Employee("Ирина", "Иванова"),
             new Employee("Виктория", "Галицина"),
             new Employee("Матвей", "Щукин"),
             new Employee("Ольга", "Петриченко"),
             new Employee("Евгений", "Люпин"),
             new Employee("Лидия", "Астапова"),
-            new Employee("Ivan", "Ivanov")
+            new Employee("Ирина", "Иванова")
     ));
     private final static int maxEmployeeCount = 11;
-
     @Override
-    public Employee addEmployee(Employee employee) {
-        if (maxEmployeeCount == employees.size()) {
+    public Employee addEmployee(String firstName, String lastName) {
+        Employee employee = new Employee(firstName, lastName);
+        if (employee.getFirstName() == null || employee.getLastName() == null) {
+            throw new EmployeeDataEnteredIncorrectlyException();
+        }
+        if (maxEmployeeCount == employeeList.size()) {
             throw new EmployeeStorageIsFullException();
         }
-        if (employees.contains(employee)) {
+        if (employeeList.contains(employee)) {
             throw new EmployeeAlreadyAddedException();
         }
-        employees.add(employee);
-        System.out.println("добавлен в список " + employee);
+        employeeList.add(employee);
         return employee;
     }
-
     @Override
-    public String deleteEmployee(Employee employee) {
-        employees.remove(employee);
-        System.out.println("удален по запросу " + employee);
+    public Employee deleteEmployee(String firstName, String lastName) {
+        Employee employee = new Employee(firstName, lastName);
+        if (employee.getFirstName() == null || employee.getLastName() == null) {
+            throw new EmployeeDataEnteredIncorrectlyException();
+        }
+        if (employeeList.contains(employee)) {
+            employeeList.remove(employee);
+        }
+            return employee;
+
+    }
+    @Override
+    public Employee findEmployee(String firstName, String lastName) {
+        Employee employee = new Employee(firstName, lastName);
+        if (employee.getFirstName() == null || employee.getFirstName() == null) {
+            throw new EmployeeDataEnteredIncorrectlyException();
+        }
+        if (employeeList.contains(employee)) {
+            return employee;
+        }
+
         throw new EmployeeNotFoundException();
     }
 
     @Override
-    public String findEmployee(Employee employee) {
-
-        if (employee.getFirstName() == null || employee.getLastName() == null) {
-            throw new EmployeeDataEnteredIncorrectlyException();
-        }
-        if (!employee.getFirstName().matches("\\w+") || employee.getLastName().matches("\\w+")) {
-
-            throw new EmployeeNotFoundException();
-        }
-        for (Employee employee1 : employees) {
-            return "по запросу " + employee + "найден " + employee;
-        }
-        return findEmployee(employee);
-    }
-    @Override
-    public String allEmployee() {
-        ListIterator iterator = employees.listIterator();
-
-        while (iterator.hasNext()) {
-            System.out.println(iterator.next());
-        }
-        return allEmployee();
+    public List<Employee> allEmployee() {
+        return new ArrayList<>(employeeList);
     }
 
-    @Override
-    public String welcomeTest(){
-        return "Добро пожаловать в тест";
-    }
+
+//    @Override
+//    public String welcomeTest(){
+//        return "Добро пожаловать в тест";
+//    }
 }
