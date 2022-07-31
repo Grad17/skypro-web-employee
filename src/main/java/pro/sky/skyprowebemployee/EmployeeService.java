@@ -3,13 +3,12 @@ package pro.sky.skyprowebemployee;
 import java.util.Collection;
 
 public interface EmployeeService {
+    public Employee addEmployee(Employee employee);
 
+    public Employee deleteEmployee(Employee employee);
 
-    Employee addEmployee(String firstName, String lastName);
+    public Employee findEmployee(String firstName);
 
-    Employee deleteEmployee(String firstName, String lastName);
+    public Collection<Employee> allEmployee();
 
-    Employee findEmployee(String firstName, String lastName);
-
-    Collection<Employee> allEmployee();
 }

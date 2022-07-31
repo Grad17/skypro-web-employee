@@ -6,67 +6,61 @@ import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private final List<Employee> employeeList = new ArrayList<>(List.of(
-            new Employee("Василий", "Пупкин"),
-            new Employee("Владеяр", "Чушкин"),
-            new Employee("Петр", "Сахаров"),
-            new Employee("Кузьма", "Кузин"),
-            new Employee("Виктория", "Галицина"),
-            new Employee("Матвей", "Щукин"),
-            new Employee("Ольга", "Петриченко"),
-            new Employee("Евгений", "Люпин"),
-            new Employee("Лидия", "Астапова"),
-            new Employee("Ирина", "Иванова")
+    private Map<String, Employee> employees = new HashMap<>(Map.of(
+            "Василий", new Employee("Василий", "Пупкин"),
+            "Владеяр", new Employee("Владеяр", "Чушкин"),
+            "Петр", new Employee("Петр", "Сахаров"),
+            "Кузьма", new Employee("Кузьма", "Кузин"),
+            "Ирина", new Employee("Ирина", "Иванова"),
+            "Виктория", new Employee("Виктория", "Галицина"),
+            "Матвей", new Employee("Матвей", "Щукин"),
+            "Ольга", new Employee("Ольга", "Петриченко"),
+            "Евгений", new Employee("Евгений", "Люпин"),
+            "Лидия", new Employee("Лидия", "Астапова")
     ));
     private final static int maxEmployeeCount = 11;
+
     @Override
-    public Employee addEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee addEmployee(Employee employee) {
         if (employee.getFirstName() == null || employee.getLastName() == null) {
             throw new EmployeeDataEnteredIncorrectlyException();
         }
-        if (maxEmployeeCount == employeeList.size()) {
+        if (maxEmployeeCount == employees.size()) {
             throw new EmployeeStorageIsFullException();
         }
-        if (employeeList.contains(employee)) {
+        if (employees.containsKey(employee.getFirstName())) {
             throw new EmployeeAlreadyAddedException();
         }
-        employeeList.add(employee);
+        employees.put(employee.getFirstName(), employee);
         return employee;
     }
+
     @Override
-    public Employee deleteEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee deleteEmployee(Employee employee) {
         if (employee.getFirstName() == null || employee.getLastName() == null) {
             throw new EmployeeDataEnteredIncorrectlyException();
         }
-        if (employeeList.contains(employee)) {
-            employeeList.remove(employee);
-        }
-            return employee;
+        if (employees.containsKey(employee.getFirstName()))
+            return employees.remove(employee.getFirstName());
 
+        throw new EmployeeNotFoundException();
     }
+
     @Override
-    public Employee findEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (employee.getFirstName() == null || employee.getFirstName() == null) {
+    public Employee findEmployee(String firstName) {
+        Employee employee = employees.get(firstName);
+        if (employee.getFirstName() == null || employee.getLastName() == null) {
             throw new EmployeeDataEnteredIncorrectlyException();
         }
-        if (employeeList.contains(employee)) {
-            return employee;
+        if (employees.containsKey(employee.getFirstName())) {
+            return employees.get(employee.getFirstName());
         }
 
         throw new EmployeeNotFoundException();
     }
 
     @Override
-    public List<Employee> allEmployee() {
-        return new ArrayList<>(employeeList);
+    public Collection<Employee> allEmployee() {
+        return Collections.unmodifiableCollection(employees.values());
     }
-
-
-//    @Override
-//    public String welcomeTest(){
-//        return "Добро пожаловать в тест";
-//    }
 }
