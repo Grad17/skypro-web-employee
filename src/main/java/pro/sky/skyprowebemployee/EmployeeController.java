@@ -20,24 +20,34 @@ public class EmployeeController {
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
+
     @GetMapping(path = "/add")
     public Employee addEmployee(@RequestParam("firstName") String firstName,
-                                            @RequestParam("lastName") String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+                                @RequestParam("lastName") String lastName,
+                                @RequestParam("department") int department,
+                                @RequestParam("salary") int salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         return employee;
     }
+
     @GetMapping(path = "/delete")
     public Employee deleteEmployee(@RequestParam("firstName") String firstName,
-                                   @RequestParam("lastName") String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+                                   @RequestParam("lastName") String lastName,
+                                   @RequestParam("department") int department,
+                                   @RequestParam("salary") int salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         return employee;
     }
+
     @GetMapping(path = "/find")
     public Employee findEmployee(@RequestParam("firstName") String firstName,
-                                 @RequestParam("lastName") String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+                                 @RequestParam("lastName") String lastName,
+                                 @RequestParam("department") int department,
+                                 @RequestParam("salary") int salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         return employee;
     }
+
     @GetMapping(path = "/all")
     public Collection<Employee> allEmployee() {
         return employeeService.allEmployee();

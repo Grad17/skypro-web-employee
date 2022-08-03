@@ -10,5 +10,4 @@ public interface EmployeeService {
     public Employee findEmployee(String firstName);
 
     public Collection<Employee> allEmployee();
-
 }

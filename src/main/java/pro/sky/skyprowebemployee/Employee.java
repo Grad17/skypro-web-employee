@@ -4,14 +4,22 @@ import java.util.Objects;
 
 public class Employee {
 
-    private final String firstName;
-    private final String lastName;
+    private String firstName;
+    private String lastName;
+    private int department;
+    private int salary;
 
-
-    public Employee (String firstName, String lastName) {
+    public Employee (String firstName, String lastName, int department, int salary) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.department = department;
+        this.salary = salary;
     }
+
+    public Employee(int department) {
+        this.department = department;
+    }
+
 
     public String getFirstName() {
         return firstName;
@@ -19,6 +27,14 @@ public class Employee {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public int getDepartment() {
+        return department;
+    }
+
+    public int getSalary() {
+        return salary;
     }
 
     public boolean equals(Object o) {

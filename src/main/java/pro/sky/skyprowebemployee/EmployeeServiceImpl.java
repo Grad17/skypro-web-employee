@@ -6,17 +6,17 @@ import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private Map<String, Employee> employees = new HashMap<>(Map.of(
-            "Василий", new Employee("Василий", "Пупкин"),
-            "Владеяр", new Employee("Владеяр", "Чушкин"),
-            "Петр", new Employee("Петр", "Сахаров"),
-            "Кузьма", new Employee("Кузьма", "Кузин"),
-            "Ирина", new Employee("Ирина", "Иванова"),
-            "Виктория", new Employee("Виктория", "Галицина"),
-            "Матвей", new Employee("Матвей", "Щукин"),
-            "Ольга", new Employee("Ольга", "Петриченко"),
-            "Евгений", new Employee("Евгений", "Люпин"),
-            "Лидия", new Employee("Лидия", "Астапова")
+    private final Map<String, Employee> employees = new HashMap<>(Map.of(
+            "Василий", new Employee("Василий", "Пупкин", 1, 101_000),
+            "Владеяр", new Employee("Владеяр", "Чушкин",1, 102_000),
+            "Петр", new Employee("Петр", "Сахаров", 2, 98_000),
+            "Кузьма", new Employee("Кузьма", "Кузин", 2, 80_500),
+            "Ирина", new Employee("Ирина", "Иванова", 3, 150_000),
+            "Виктория", new Employee("Виктория", "Галицина", 4, 120_000),
+            "Матвей", new Employee("Матвей", "Щукин", 4, 80_000),
+            "Ольга", new Employee("Ольга", "Петриченко", 4, 110_000),
+            "Евгений", new Employee("Евгений", "Люпин", 5, 39_000),
+            "Лидия", new Employee("Лидия", "Астапова", 5, 58_000)
     ));
     private final static int maxEmployeeCount = 11;
 
