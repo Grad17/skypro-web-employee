@@ -26,26 +26,19 @@ public class EmployeeController {
                                 @RequestParam("lastName") String lastName,
                                 @RequestParam("department") int department,
                                 @RequestParam("salary") int salary) {
-        Employee employee = new Employee(firstName, lastName, department, salary);
-        return employee;
+        return new Employee(firstName, lastName, department, salary);
     }
 
     @GetMapping(path = "/delete")
     public Employee deleteEmployee(@RequestParam("firstName") String firstName,
-                                   @RequestParam("lastName") String lastName,
-                                   @RequestParam("department") int department,
-                                   @RequestParam("salary") int salary) {
-        Employee employee = new Employee(firstName, lastName, department, salary);
-        return employee;
+                                   @RequestParam("lastName") String lastName) {
+        return new Employee(firstName, lastName);
     }
 
     @GetMapping(path = "/find")
     public Employee findEmployee(@RequestParam("firstName") String firstName,
-                                 @RequestParam("lastName") String lastName,
-                                 @RequestParam("department") int department,
-                                 @RequestParam("salary") int salary) {
-        Employee employee = new Employee(firstName, lastName, department, salary);
-        return employee;
+                                 @RequestParam("lastName") String lastName) {
+        return new Employee(firstName, lastName);
     }
 
     @GetMapping(path = "/all")

@@ -20,6 +20,11 @@ public class Employee {
         this.department = department;
     }
 
+    public Employee(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
 
     public String getFirstName() {
         return firstName;

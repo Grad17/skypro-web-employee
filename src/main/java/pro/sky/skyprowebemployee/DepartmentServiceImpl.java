@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -17,30 +18,29 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Employee typeMaxSalaryDep(int department) {
-        return (Employee) employeeService.allEmployee().stream()
+        return employeeService.allEmployee().stream()
                 .filter(employee -> employee.getDepartment() == department)
-                .max(Comparator.comparingInt(e -> e.getSalary()))
-                .orElseThrow(() -> new EmployeeNotFoundException());
+                .max(Comparator.comparingInt(Employee::getSalary))
+                .orElseThrow(EmployeeNotFoundException::new);
     }
     @Override
     public Employee typeMinSalaryDep(int department) {
-        return (Employee) employeeService.allEmployee().stream()
+        return employeeService.allEmployee().stream()
                 .filter(employee -> employee.getDepartment() == department)
-                .min(Comparator.comparingInt(e -> e.getSalary()))
-                .orElseThrow(() -> new EmployeeNotFoundException());
+                .min(Comparator.comparingInt(Employee::getSalary))
+                .orElseThrow(EmployeeNotFoundException::new);
     }
     @Override
-    public List<Employee> countAllFullNameDep(int department) {
+    public Map<String, Employee> countAllFullNameDep(int department) {
         List<Employee> allEmployeeDep = employeeService.allEmployee().stream()
                 .filter(employee -> employee.getDepartment() == department)
                 .collect(Collectors.toList());
-        return allEmployeeDep;
+        return (Map<String, Employee>) allEmployeeDep;
     }
     @Override
-    public List<Employee> allFullNameDep() {
-        List<Employee> allEmployee = employeeService.allEmployee().stream()
-                .sorted(Comparator.comparingInt(employee -> employee.getDepartment()))
-                .toList();
+    public Map<Integer, List<Employee>> allFullNameDep() {
+        Map<Integer, List<Employee>> allEmployee = employeeService.allEmployee().stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment));
         return allEmployee;
     }
 }
