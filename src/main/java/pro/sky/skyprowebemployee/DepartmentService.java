@@ -8,7 +8,7 @@ public interface DepartmentService {
 
     Employee typeMinSalaryDep(int department);
 
-    Map<String, Employee> countAllFullNameDep(int department);
+    List<Employee> countAllFullNameDep(int department);
 
     Map<Integer, List<Employee>> allFullNameDep();
 }

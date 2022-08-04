@@ -31,11 +31,11 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .orElseThrow(EmployeeNotFoundException::new);
     }
     @Override
-    public Map<String, Employee> countAllFullNameDep(int department) {
+    public List<Employee> countAllFullNameDep(int department) {
         List<Employee> allEmployeeDep = employeeService.allEmployee().stream()
                 .filter(employee -> employee.getDepartment() == department)
                 .collect(Collectors.toList());
-        return (Map<String, Employee>) allEmployeeDep;
+        return allEmployeeDep;
     }
     @Override
     public Map<Integer, List<Employee>> allFullNameDep() {

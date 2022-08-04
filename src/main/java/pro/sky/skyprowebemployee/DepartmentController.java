@@ -24,7 +24,7 @@ public class DepartmentController {
         return departmentService.typeMaxSalaryDep(department);
     }
     @GetMapping(path = "/all/")
-    public Map<String, Employee> countAllFullNameDep(@RequestParam("department") int department) {
+    public List<Employee> countAllFullNameDep(@RequestParam("department") int department) {
         return departmentService.countAllFullNameDep(department);
     }
     @GetMapping(path = "/all")

@@ -32,13 +32,15 @@ public class EmployeeController {
     @GetMapping(path = "/delete")
     public Employee deleteEmployee(@RequestParam("firstName") String firstName,
                                    @RequestParam("lastName") String lastName) {
-        return new Employee(firstName, lastName);
+        Employee employee = new Employee(firstName, lastName);
+        return employeeService.deleteEmployee(employee);
     }
 
     @GetMapping(path = "/find")
     public Employee findEmployee(@RequestParam("firstName") String firstName,
                                  @RequestParam("lastName") String lastName) {
-        return new Employee(firstName, lastName);
+        Employee employee = new Employee(firstName, lastName);
+        return employeeService.findEmployee(firstName);
     }
 
     @GetMapping(path = "/all")
