@@ -1,5 +1,6 @@
 package pro.sky.skyprowebemployee;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,11 +23,14 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/add")
-    public Employee addEmployee(@RequestParam("firstName") String firstName,
+    public Employee addEmployee(@RequestParam("firstName")String firstName,
                                 @RequestParam("lastName") String lastName,
                                 @RequestParam("department") int department,
                                 @RequestParam("salary") int salary) {
-        return new Employee(firstName, lastName, department, salary);
+        if (StringUtils.isAlpha(firstName)&&StringUtils.isAlpha(lastName)){
+            return new Employee(firstName, lastName, department, salary);
+        }
+        throw new EmployeeBadRequest400Exception();
     }
 
     @GetMapping(path = "/delete")
