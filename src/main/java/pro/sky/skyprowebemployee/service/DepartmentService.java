@@ -1,4 +1,6 @@
-package pro.sky.skyprowebemployee;
+package pro.sky.skyprowebemployee.service;
+
+import pro.sky.skyprowebemployee.Employee;
 
 import java.util.List;
 import java.util.Map;

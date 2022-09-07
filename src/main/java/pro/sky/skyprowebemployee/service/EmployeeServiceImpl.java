@@ -1,6 +1,12 @@
-package pro.sky.skyprowebemployee;
+package pro.sky.skyprowebemployee.service;
 
 import org.springframework.stereotype.Service;
+import pro.sky.skyprowebemployee.Employee;
+import pro.sky.skyprowebemployee.exeption.EmployeeAlreadyAddedException;
+import pro.sky.skyprowebemployee.exeption.EmployeeDataEnteredIncorrectlyException;
+import pro.sky.skyprowebemployee.exeption.EmployeeNotFoundException;
+import pro.sky.skyprowebemployee.exeption.EmployeeStorageIsFullException;
+import pro.sky.skyprowebemployee.service.EmployeeService;
 
 import java.util.*;
 
@@ -15,8 +21,8 @@ public class EmployeeServiceImpl implements EmployeeService {
             "Виктория", new Employee("Виктория", "Галицина", 4, 120_000),
             "Матвей", new Employee("Матвей", "Щукин", 4, 80_000),
             "Ольга", new Employee("Ольга", "Петриченко", 4, 110_000),
-            "Евгений", new Employee("Евгений", "Люпин", 5, 39_000),
-            "Лидия", new Employee("Лидия", "Астапова", 5, 58_000)
+            "Евгений", new Employee("Евгений", "Люпин", 5, 39_000)
+//            "Лидия", new Employee("Лидия", "Астапова", 5, 58_000)
     ));
     private final static int maxEmployeeCount = 11;
 
@@ -40,22 +46,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employee.getFirstName() == null || employee.getLastName() == null) {
             throw new EmployeeDataEnteredIncorrectlyException();
         }
-        if (employees.containsKey(employee.getFirstName()))
+        if (employees.containsKey(employee.getFirstName())) {
             return employees.remove(employee.getFirstName());
-
+        }
         throw new EmployeeNotFoundException();
     }
 
     @Override
-    public Employee findEmployee(String firstName) {
-        Employee employee = employees.get(firstName);
+    public Employee findEmployee(Employee employee) {
+//        Employee employee = employees.get(firstName);
         if (employee.getFirstName() == null || employee.getLastName() == null) {
             throw new EmployeeDataEnteredIncorrectlyException();
         }
         if (employees.containsKey(employee.getFirstName())) {
-            return employees.get(employee.getFirstName());
+            return employee;
         }
-
         throw new EmployeeNotFoundException();
     }
 

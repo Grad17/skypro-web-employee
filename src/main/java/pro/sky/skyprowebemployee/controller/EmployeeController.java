@@ -1,10 +1,13 @@
-package pro.sky.skyprowebemployee;
+package pro.sky.skyprowebemployee.controller;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pro.sky.skyprowebemployee.Employee;
+import pro.sky.skyprowebemployee.service.EmployeeService;
+import pro.sky.skyprowebemployee.exeption.EmployeeBadRequest400Exception;
 
 import java.util.Collection;
 
@@ -14,7 +17,7 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
 
-    //    @GetMapping()
+//        @GetMapping()
 //    public String welcomeTest() {
 //        return employeeService.welcomeTest();
 //    }
@@ -44,7 +47,7 @@ public class EmployeeController {
     public Employee findEmployee(@RequestParam("firstName") String firstName,
                                  @RequestParam("lastName") String lastName) {
         Employee employee = new Employee(firstName, lastName);
-        return employeeService.findEmployee(firstName);
+        return employee;
     }
 
     @GetMapping(path = "/all")
